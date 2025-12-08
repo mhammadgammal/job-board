@@ -10,6 +10,7 @@ Route::get('/about', [IndexController::class, 'about']);
 Route::get('/contact', [IndexController::class, 'contact']);
 Route::get('/blog', [PostController::class, 'index']);
 Route::get('/blog/create', [PostController::class, 'create']);
+Route::get('blog/delete/{id}', [PostController::class, 'delete']);
 Route::get('/blog/{id}', [PostController::class, 'show']);
 
 //comments
