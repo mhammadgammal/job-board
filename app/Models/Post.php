@@ -11,4 +11,8 @@ class Post extends Model
     protected $fillable = ['title', 'author', 'body', 'published'];
 
     protected $guarded = ['id'];
+
+    public function comments() {
+        return $this->hasMany(Comment::class);
+    }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
@@ -10,3 +11,7 @@ Route::get('/contact', [IndexController::class, 'contact']);
 Route::get('/blog', [PostController::class, 'index']);
 Route::get('/blog/create', [PostController::class, 'create']);
 Route::get('/blog/{id}', [PostController::class, 'show']);
+
+//comments
+Route::get('comments', [CommentController::class, 'index']);
+Route::get('comments/{id}', [CommentController::class, 'show']);
