@@ -27,14 +27,26 @@ class PostController extends Controller
         return redirect('/blog');
     }
 
-    public function show($id) {
+    public function show($id)
+    {
         $post = Post::findOrFail($id);
+
         return view('post.show', ['post' => $post]);
     }
 
-    public function delete($id) {
+    public function delete($id)
+    {
         $post = Post::findOrFail($id);
         $post->delete();
+
+        return redirect('/blog');
+    }
+
+    public function attachTag($post_id, $tag_id)
+    {
+        $post = Post::findOrFail($post_id);
+        $post->tags()->attach([$tag_id]);
+
         return redirect('/blog');
     }
 }
