@@ -12,6 +12,5 @@ Route::get('/contact', [IndexController::class, 'contact']);
 Route::resource('blog', PostController::class);
 Route::get('/blog/create-with-tag/{post_id}/{tag_id}', [PostController::class, 'attachTag']);
 
-// comments
-Route::get('comments', [CommentController::class, 'index']);
-Route::get('comments/{id}', [CommentController::class, 'show']);
+// comments resource
+Route::resource('comments', CommentController::class);
