@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    //
-
+    /**
+     * Display a listing of the resource.
+     */
     public function index()
     {
         $data = Post::all();
@@ -15,18 +17,25 @@ class PostController extends Controller
         return view('post.index', ['posts' => $data]);
     }
 
+    /**
+     * Show the form for creating a new resource.
+     */
     public function create()
     {
-        Post::create([
-            'title' => 'First Post',
-            'body' => 'This is the body of the first post.',
-            'author' => 'Admin',
-            'published' => true,
-        ]);
-
-        return redirect('/blog');
+        return view('post.create');
     }
 
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        // @TODO: implement store logic
+    }
+
+    /**
+     * Display the specified resource.
+     */
     public function show($id)
     {
         $post = Post::findOrFail($id);
@@ -34,19 +43,27 @@ class PostController extends Controller
         return view('post.show', ['post' => $post]);
     }
 
-    public function delete($id)
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Post $post)
     {
-        $post = Post::findOrFail($id);
-        $post->delete();
-
-        return redirect('/blog');
+        // @TODO: implement edit logic
     }
 
-    public function attachTag($post_id, $tag_id)
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Post $post)
     {
-        $post = Post::findOrFail($post_id);
-        $post->tags()->attach([$tag_id]);
+        // @TODO: implement update logic
+    }
 
-        return redirect('/blog');
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Post $post)
+    {
+        // @TODO: implement store logic
     }
 }
