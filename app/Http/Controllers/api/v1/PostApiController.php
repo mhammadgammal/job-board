@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class PostApiController extends Controller
@@ -12,7 +13,14 @@ class PostApiController extends Controller
      */
     public function index()
     {
-        //
+        $data = Post::all();
+
+        return response()->json(
+            [
+                'status' => 'success',
+                'data' => $data,
+            ]
+        );
     }
 
     /**
@@ -20,7 +28,15 @@ class PostApiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = Post::create($request->all());
+
+        return response()->json(
+            [
+                'status' => 'success',
+                'message' => 'Post created successfully',
+                'data' => $data,
+            ]
+        );
     }
 
     /**
@@ -28,7 +44,24 @@ class PostApiController extends Controller
      */
     public function show(string $id)
     {
-        //
+        try {
+            $data = Post::findOrFail($id);
+
+            return response()->json(
+                [
+                    'status' => 'success',
+                    'data' => $data,
+                ]
+            );
+        } catch (\Throwable $th) {
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'message' => 'Post not found',
+                ],
+                404
+            );
+        }
     }
 
     /**
@@ -36,7 +69,25 @@ class PostApiController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        try {
+            $data = Post::findOrFail($id);
+            $data->update($request->all());
+
+            return response()->json(
+                [
+                    'status' => 'success',
+                    'data' => $data,
+                ]
+            );
+        } catch (\Throwable $th) {
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'message' => 'Post not found',
+                ],
+                404
+            );
+        }
     }
 
     /**
@@ -44,6 +95,23 @@ class PostApiController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $data = Post::findOrFail($id);
+            $data->delete();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Post deleted successfully',
+            ]
+            );
+        } catch (\Throwable $th) {
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'message' => 'Post not found',
+                ],
+                404
+            );
+        }
     }
 }
