@@ -21,9 +21,15 @@ Route::post('/login', [AuthController::class, 'login']);
 
 // logout
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-// blog posts resource
-Route::resource('blog', PostController::class);
-Route::get('/blog/create-with-tag/{post_id}/{tag_id}', [PostController::class, 'attachTag']);
 
-// comments resource
-Route::resource('comments', CommentController::class);
+// blog posts resource
+Route::middleware('auth')->group(
+    function () {
+        Route::resource('blog', PostController::class);
+
+        Route::get('/blog/create-with-tag/{post_id}/{tag_id}', [PostController::class, 'attachTag']);
+
+        // comments resource
+        Route::resource('comments', CommentController::class);
+    }
+);
