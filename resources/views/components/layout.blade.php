@@ -34,6 +34,7 @@
             <a href="/" class="text-sm/6 font-semibold text-gray-900">Home</a>
             <a href="/about" class="text-sm/6 font-semibold text-gray-900">About</a>
             <a href="/contact" class="text-sm/6 font-semibold text-gray-900">Contact</a>
+            <a href="/blog" class="text-sm/6 font-semibold text-gray-900">Blog</a>
         </div>
         @auth
             <span class="text-sm/6 font-semibold text-gray-900" style="margin-left:10px;">
