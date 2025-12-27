@@ -18,6 +18,8 @@ Route::post('/signup', [AuthController::class, 'signup']);
 // login
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 
+// logout
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // blog posts resource
 Route::resource('blog', PostController::class);
 Route::get('/blog/create-with-tag/{post_id}/{tag_id}', [PostController::class, 'attachTag']);
