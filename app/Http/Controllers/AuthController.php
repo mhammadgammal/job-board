@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\SignupRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
@@ -14,7 +15,7 @@ class AuthController extends Controller
         return view('auth.signup');
     }
 
-    public function signup(Request $request)
+    public function signup(SignupRequest $request)
     {
         // dd($request->all());
         $user = new User;
@@ -33,8 +34,18 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
-    public function login() {}
+    public function login(LoginRequest $request) {
+        $creds = $request->only('email', 'password');
+        if (auth()->guard()->attempt($creds)) {
+            $request->session()->regenerate();
 
+            return redirect('/');
+        }
+
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->withInput();
+    }
     public function logout()
     {
         auth()->guard()->logout();
