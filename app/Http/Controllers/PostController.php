@@ -48,7 +48,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        // @TODO: implement edit logic
+        return view('post.edit', ['post' => $post]);
     }
 
     /**
@@ -56,7 +56,16 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        // @TODO: implement update logic
+        dd($request->all());
+        $validated = $request->validate([
+            'title' => 'required|max:255',
+            'author' => 'required|max:255',
+            'body' => 'required',
+        ]);
+
+        $post->update($validated);
+
+        return redirect()->route('posts.show', $post)->with('success', 'Post updated successfully.');
     }
 
     /**
@@ -64,6 +73,8 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        // @TODO: implement store logic
+        $post->delete();
+
+        return redirect()->route('posts.index')->with('success', 'Post deleted successfully.');
     }
 }
