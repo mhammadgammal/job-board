@@ -1,7 +1,7 @@
 <x-layout title="Edit Post">
     <h2>Edit Post</h2>
 
-    <form method="POST" action="/blog/{{ $post->id }}">
+    <form method="POST" action="{{ route('blog.update', $post->id) }}">
         @csrf
         @method('PUT')
 

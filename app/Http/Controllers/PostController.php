@@ -30,7 +30,15 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        // @TODO: implement store logic
+        $validated = $request->validate([
+            'title' => 'required|max:255',
+            'author' => 'required|max:255',
+            'body' => 'required',
+        ]);
+
+        Post::create($validated);
+
+        return redirect()->route('posts.index')->with('success', 'Post created successfully.');
     }
 
     /**
@@ -46,17 +54,20 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Post $post)
+    public function edit(string $id)
     {
+        $post = Post::findOrFail($id);
+
         return view('post.edit', ['post' => $post]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, $id)
     {
-        dd($request->all());
+    
+        $post = Post::findOrFail($id);
         $validated = $request->validate([
             'title' => 'required|max:255',
             'author' => 'required|max:255',
@@ -65,7 +76,7 @@ class PostController extends Controller
 
         $post->update($validated);
 
-        return redirect()->route('posts.show', $post)->with('success', 'Post updated successfully.');
+        return redirect()->route('blog.show', $post)->with('success', 'Post updated successfully.');
     }
 
     /**
