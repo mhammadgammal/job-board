@@ -43,9 +43,9 @@ Route::middleware('auth')->group(
         );
 
         // Editor, Admin
-        Route::middleware('role:editor,admin')->group(function () {
-            Route::get('/blog/{id}/edit', [PostController::class, 'edit'])->name('blog.edit');
-            Route::put('/blog/{id}', [PostController::class, 'update'])->name('blog.update');
+        Route::middleware('can:update,post')->group(function () {
+            Route::get('/blog/{post}/edit', [PostController::class, 'edit'])->name('blog.edit');
+            Route::put('/blog/{post}', [PostController::class, 'update'])->name('blog.update');
         });
 
         Route::get('/blog/create-with-tag/{post_id}/{tag_id}', [PostController::class, 'attachTag']);

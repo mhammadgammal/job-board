@@ -32,10 +32,10 @@ class PostController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|max:255',
-            'author' => 'required|max:255',
             'body' => 'required',
         ]);
 
+        $validated['user_id'] = auth()->id();
         Post::create($validated);
 
         return redirect()->route('blog.index')->with('success', 'Post created successfully.');
@@ -54,23 +54,19 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Post $post)
     {
-        $post = Post::findOrFail($id);
-
         return view('post.edit', ['post' => $post]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-    
-        $post = Post::findOrFail($id);
+
         $validated = $request->validate([
             'title' => 'required|max:255',
-            'author' => 'required|max:255',
             'body' => 'required',
         ]);
 

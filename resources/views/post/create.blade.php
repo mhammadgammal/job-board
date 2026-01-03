@@ -13,14 +13,6 @@
         </div>
 
         <div class="mb-3">
-            <label for="author" class="form-label">Author</label>
-            <input type="text" class="form-control" id="author" name="author" value="{{ old('author') }}">
-            @error('author')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-        </div>
-
-        <div class="mb-3">
             <label for="body" class="form-label">Body</label>
             <textarea class="form-control" id="body" name="body" rows="3">{{ old('body') }}</textarea>
             @error('body')
