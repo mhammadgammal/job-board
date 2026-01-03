@@ -66,4 +66,8 @@ class User extends Authenticatable implements JWTSubject
             'password' => 'hashed',
         ];
     }
+
+    public function posts() {
+        return $this->hasMany(Post::class);
+    }
 }
